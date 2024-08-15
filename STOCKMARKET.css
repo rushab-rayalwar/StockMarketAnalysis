@@ -1,0 +1,82 @@
+body{
+    background-image: linear-gradient(to bottom, rgb(32, 60, 72), black 100%); height:100vh; overflow: hidden; position: relative;
+    margin: 0.3rem !important;
+}
+header{width: 100%; display:flex; justify-content: center;
+}
+
+/* elements that move with mouse */
+#custom-tooltip {display: none;opacity:0;
+    position:absolute;
+    background-color: rgb(0, 49, 69);
+    border-radius: 5px;
+    height: 1rem; top:110px;left:110px;z-index:2;display:inline-block; color:white;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding:7px;
+  }
+#time-tick{display:none;color:rgb(115, 115, 115); font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem; position: absolute;
+}
+#webpage-name{color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    transition: transform 1.2s ease-in-out, opacity 1s ease-in-out; transform: translateY(50vh)/* transform: translateY(1vh);*/; opacity: 0;
+}
+#web-logo{color:red; margin-left: 5px; transform: translateY(50vh);
+    transition: transform 1.2s ease-in-out, opacity 1s ease-in-out; transform: translateY(50vh)/* transform: translateY(1vh);*/; opacity: 0;
+}
+main{display: flex; flex-direction: row; align-items: flex-start;
+}
+
+/* chart section */
+#chart-section{opacity: 0; transition: opacity 0.5s ease-out; margin-top: 2vh;
+}
+.container{ border-radius:10px; overflow:hidden; background-color: rgba(0,0,0,0.3); box-shadow: 0px 40px  40px 0 rgba(255,255,255,0.02) inset;
+}
+#chart-container{height: 60vh; width:72vw;
+}
+#chart-canvas{ 
+}
+/* summary section */
+#summary-header{display:flex; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding:5px;
+}
+#sum-stock-name{font-size:1.2rem; margin-right:1rem; margin-left: 2vw;
+}
+#sum-book-value{font-size:1.2rem; margin-right:1rem;
+}
+#sum-profit{font-size:1.2rem; color:rgba(30,255,30,0.5);
+}
+
+/* LIST SECTION */
+/* Header */
+#column-names{display:flex;width:95%;justify-content:center;
+}
+.column-name{color:rgba(255,255,255,0.5); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size:0.8rem; display: flex; justify-content: center;
+}
+#stocks{width:16%;
+}
+#book-value{width:64%;
+}
+#profit{width:20%;
+}
+/*main*/
+#list-section{margin-top:2vh; margin-left:0.5vw;
+}
+#list-container{height: 90vh; width:26.5vw; display:flex; justify-content:center;align-items:center; flex-direction:column;
+}
+#loading-stocks{color:rgb(139, 139, 139); font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:0.9rem;
+}
+
+/* STOCKS IN THE LIST */
+.stock{ width:95%; display:flex; height:8%; margin: 1.5% 0 0 0; opacity:0; transition: opacity 1s ease-in-out;
+}
+.stock:hover{background-color: rgba(255, 255, 255, 0.05); cursor:pointer;
+}
+.stock-name-div{height:100%; background-color: hsla(273.3, 80.2%, 54.7%, 0.2); width: 16%; display:flex; justify-content: center; align-items: center; color:white;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.stock-book-value-div{color:white; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display:flex;align-items: center; height:100%; padding-left:3%; width:64%; background-color:rgba(5, 88, 88, 0.1);
+}
+.stock-profit-div{width: 20%; background-color: rgba(0, 182, 39, 0.08); height:100%; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display:flex; justify-content: center; align-items: center;
+}
