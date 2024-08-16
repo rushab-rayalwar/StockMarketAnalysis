@@ -49,13 +49,13 @@ function makeChart() {
                         display: 0
                     },
                     grid: {
-                        color: 'rgba(58, 84, 136, 0.1)'
+                        color: 'rgba(58, 84, 100, 0.1)'
                     }
                 },
                 y: {
                     beginAtZero: true,
                     grid: {
-                        color: 'rgba(58, 84, 136, 0.1)'
+                        color: 'rgba(58, 84, 100, 0.1)'
                     },
                     // min: minValue,
                     // max: maxValue

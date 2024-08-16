@@ -25,17 +25,27 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 
 /* chart section */
-#chart-section{opacity: 0; transition: opacity 0.5s ease-out; margin-top: 2vh;
+#chart-section{opacity: 0; transition: opacity 0.5s ease-out; margin-top: 2vh;position:relative;
 }
-.container{ border-radius:10px; overflow:hidden; background-color: rgba(0,0,0,0.3); box-shadow: 0px 40px  40px 0 rgba(255,255,255,0.02) inset;
+.container{ border-radius:0.5rem; overflow:hidden; background-color: rgba(0,0,0,0.3); box-shadow: 0px 40px  40px 0 rgba(255,255,255,0.02) inset;
+}
+.container-option{ border-radius:0.5rem; overflow:hidden; background-color: rgba(0,0,0,0.4); box-shadow: 0px 10px  6px 0 rgba(255,255,255,0.03) inset;
+}
+.container-option:hover{background-color:rgba(255,255,255,0.3);
 }
 #chart-container{height: 60vh; width:72vw;
 }
 #chart-canvas{ 
 }
+/* timespan options */
+.ts-option{color:rgba(255,255,255,0.9); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding: 1vh;
+    font-size:0.8rem;
+}
+#timespan-options{position:absolute; bottom:0;right:0;display:flex;transform:translateY(100%);
+}
 /* summary section */
 #summary-header{display:flex; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    padding:5px;
+    padding:5px;margin-top:0.5rem;
 }
 #sum-stock-name{font-size:1.2rem; margin-right:1rem; margin-left: 2vw;
 }
@@ -43,7 +53,9 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 #sum-profit{font-size:1.2rem; color:rgba(30,255,30,0.5);
 }
-
+#sum-body p{color:rgba(255, 255, 255, 0.5); font-family: Arial, Helvetica, sans-serif; font-size:0.85rem;
+    margin-left:1vw; text-align: justify; margin-right:0.5vw; padding: 1vh 1vw 1vh 1vw; background-color: rgba(0,0,0,0.3); border-radius: 1rem; margin-top:0;
+}
 /* LIST SECTION */
 /* Header */
 #column-names{display:flex;width:95%;justify-content:center;
