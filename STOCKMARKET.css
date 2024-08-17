@@ -14,6 +14,7 @@ header{width: 100%; display:flex; justify-content: center;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding:7px;
   }
 #time-tick{display:none;color:rgb(115, 115, 115); font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem; position: absolute;
+    z-index:1;
 }
 #webpage-name{color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     transition: transform 1.2s ease-in-out, opacity 1s ease-in-out; transform: translateY(50vh)/* transform: translateY(1vh);*/; opacity: 0;
@@ -30,12 +31,13 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 .container{ border-radius:0.5rem; overflow:hidden; background-color: rgba(0,0,0,0.3); box-shadow: 0px 40px  40px 0 rgba(255,255,255,0.02) inset;
 }
 .container-option{ border-radius:0.5rem; overflow:hidden; background-color: rgba(0,0,0,0.4); box-shadow: 0px 10px  6px 0 rgba(255,255,255,0.03) inset;
+    cursor:pointer;
 }
 .container-option:hover{background-color:rgba(255,255,255,0.3);
 }
 #chart-container{height: 60vh; width:72vw;
 }
-#chart-canvas{ 
+#chart-canvas{ opacity: 1; transition: opacity 0.5s ease-in-out;
 }
 /* timespan options */
 .ts-option{color:rgba(255,255,255,0.9); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding: 1vh;
