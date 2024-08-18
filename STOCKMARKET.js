@@ -13,6 +13,8 @@
   let oneYearBtn = document.querySelector('#one-year');
   let fiveYearsBtn = document.querySelector('#five-years');
 
+  let summBodyElement = document.querySelector('#sum-body p'); // summary section
+
   let chart; // defining globally
   let context;
   let currentStockName = 'AAPL';
@@ -152,7 +154,7 @@ function makeChart(stockName, timeSpan) {
             chart.data.datasets[0].pointBorderWidth[closestIndex] = 0;
     
             let dataPoint = chart.data.datasets[0].data[closestIndex];
-            customTooltip.innerHTML = `APPL: $${dataPoint.toFixed(2)}`;
+            customTooltip.innerHTML = `${currentStockName}: $${dataPoint.toFixed(2)}`;
             customTooltip.style.left = `${mouseX}px`;
             customTooltip.style.top = `${event.clientY - canvasRect.top}px`;
             customTooltip.style.display = 'block';
@@ -183,11 +185,6 @@ function makeChart(stockName, timeSpan) {
         timeTick.style.display = 'none';
     });
 }
-
-    function updateSummary() {
-
-    }
-
     function updateChart(stockName, timeSpan) {   // this function is essentially to improve performance
         if (chart) {
             let data = chartData.stocksData[0][stockName][timeSpan].value;
@@ -234,11 +231,25 @@ function makeChart(stockName, timeSpan) {
         });
         fiveYearsBtn.addEventListener('click',()=>{
             chartCanvas.style.opacity = '0';
+            fiveYearsBtn.style.className = "ts-option container-option ts-opt-clicked";
+            if(oneMonthBtn.classList.contains('active')){
+                oneMonthBtn.classList.remove()
+            }
             setTimeout(()=>{
                 updateChart(currentStockName, '5y');
                 chartCanvas.style.opacity = '1';
             },510);
         });
+    }
+
+    function updateSummary(stockName) { 
+        summBodyElement.style.opacity = '0';
+        setTimeout(()=>{
+            summBodyElement.innerHTML == '';
+            let summ = summaryData.stocksProfileData[0][stockName].summary;
+            summBodyElement.innerHTML = summ;
+        },510);
+        summBodyElement.style.opacity = '1';
     }
 
   function fetchAllData(){
@@ -285,6 +296,7 @@ function makeChart(stockName, timeSpan) {
         return res.json();
     }).then((receivedData)=>{
         summaryData = receivedData;
+        updateSummary(currentStockName);
     }).catch((err)=>{
         console.log('Could not fetch summary data');
         console.error(err);
@@ -354,6 +366,7 @@ function makeChart(stockName, timeSpan) {
             stockElement.addEventListener('click', function(event){
                 currentStockName = stockNameDiv.innerHTML;
                 updateChart(currentStockName, '5y');
+                updateSummary(currentStockName);
             });
         }
     };

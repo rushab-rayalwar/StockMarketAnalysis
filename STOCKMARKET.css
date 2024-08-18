@@ -45,6 +45,8 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 #timespan-options{position:absolute; bottom:0;right:0;display:flex;transform:translateY(100%);
 }
+.active{background-color: #16294e;
+}
 /* summary section */
 #summary-header{display:flex; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     padding:5px;margin-top:0.5rem;
@@ -55,8 +57,13 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 #sum-profit{font-size:1.2rem; color:rgba(30,255,30,0.5);
 }
+#sum-body{min-height: 26vh; background-color:rgba(0,0,0,0.3); margin-right:0.5vw;
+    border-radius: 1rem; margin-top:0; min-width: 72vw;
+}
 #sum-body p{color:rgba(255, 255, 255, 0.5); font-family: Arial, Helvetica, sans-serif; font-size:0.85rem;
-    margin-left:1vw; text-align: justify; margin-right:0.5vw; padding: 1vh 1vw 1vh 1vw; background-color: rgba(0,0,0,0.3); border-radius: 1rem; margin-top:0;
+     text-align: justify; padding: 1vh 1vw 1vh 1vw; margin-top:0; transition: 0.5s opacity; opacity:0;
+}
+#summary-section{margin-left:0vw;
 }
 /* LIST SECTION */
 /* Header */
