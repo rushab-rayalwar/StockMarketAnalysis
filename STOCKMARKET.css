@@ -9,14 +9,14 @@ header{width: 100%; display:flex; justify-content: center;
 #custom-tooltip {display: none;opacity:0;
     position:absolute;
     background-color: rgb(0, 49, 69);
-    border-radius: 5px;
+    border-radius: 0.4rem;
     height: 1rem; top:110px;left:110px;z-index:2;display:inline-block; color:white;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding:7px;
   }
 #time-tick{display:none;color:rgb(115, 115, 115); font-family:Arial, Helvetica, sans-serif; font-size: 0.8rem; position: absolute;
     z-index:1;
 }
-#webpage-name{color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+#webpage-name{color:white; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:1rem;
     transition: transform 1.2s ease-in-out, opacity 1s ease-in-out; transform: translateY(50vh)/* transform: translateY(1vh);*/; opacity: 0;
 }
 #web-logo{color:red; margin-left: 5px; transform: translateY(50vh);
@@ -26,6 +26,13 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 
 /* chart section */
+#peak-and-trough{color:rgba(255,255,255,0.8); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.8rem; height:1rem; background-color: rgba(0, 0, 0, 0); position:absolute; bottom:0; right:50%; transform: translateX(50%);
+    transition: opacity 0.5s ease-in-out; opacity:0;
+}
+#loading-canvas{position:absolute; top:50%; right:50%; color:rgba(255, 255, 255,0.4); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 0.9rem;
+}
 #chart-section{opacity: 0; transition: opacity 0.5s ease-out; margin-top: 2vh;position:relative;
 }
 .container{ border-radius:0.5rem; overflow:hidden; background-color: rgba(0,0,0,0.3); box-shadow: 0px 40px  40px 0 rgba(255,255,255,0.02) inset;
@@ -39,34 +46,39 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 #chart-canvas{ opacity: 1; transition: opacity 0.5s ease-in-out;
 }
-/* timespan options */
+/* chart section - timespan options */
 .ts-option{color:rgba(255,255,255,0.9); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; padding: 1vh;
     font-size:0.8rem;
 }
-#timespan-options{position:absolute; bottom:0;right:0;display:flex;transform:translateY(100%);
+#timespan-options{position:absolute; bottom:0;right:0;display:flex;transform:translateY(100%); z-index:0; opacity:0;
+    transition: opacity 0.5s ease-in-out;
 }
-.active{background-color: #16294e;
+.active{background-color: #05212d;
 }
+
 /* summary section */
+#loading-summary{position:absolute; top:50%; right:50%; color:rgba(255, 255, 255,0.4); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
 #summary-header{display:flex; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    padding:5px;margin-top:0.5rem;
+    padding:5px;margin-top:0.5rem; opacity:0; transition: opacity 0.5s ease-in-out;
 }
 #sum-stock-name{font-size:1.2rem; margin-right:1rem; margin-left: 2vw;
 }
 #sum-book-value{font-size:1.2rem; margin-right:1rem;
 }
-#sum-profit{font-size:1.2rem; color:rgba(30,255,30,0.5);
+#sum-profit{font-size:1.2rem; color:rgba(30,255,30,0.65);
 }
 #sum-body{min-height: 26vh; background-color:rgba(0,0,0,0.3); margin-right:0.5vw;
     border-radius: 1rem; margin-top:0; min-width: 72vw;
 }
 #sum-body p{color:rgba(255, 255, 255, 0.5); font-family: Arial, Helvetica, sans-serif; font-size:0.85rem;
-     text-align: justify; padding: 1vh 1vw 1vh 1vw; margin-top:0; transition: 0.5s opacity; opacity:0;
+     text-align: justify; padding: 1vh 1vw 1vh 1vw; margin-top:0; transition: 0.5s opacity; opacity:1;
 }
-#summary-section{margin-left:0vw;
+#summary-section{margin-left:0vw; position:relative; z-index: -1; opacity:0; transition: opacity 0.5s ease-in-out;
 }
+
 /* LIST SECTION */
-/* Header */
+/* list Header */
 #column-names{display:flex;width:95%;justify-content:center;
 }
 .column-name{color:rgba(255,255,255,0.5); font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -78,12 +90,12 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 #profit{width:20%;
 }
-/*main*/
-#list-section{margin-top:2vh; margin-left:0.5vw;
+/*list main*/
+#list-section{margin-top:2vh; margin-left:0.5vw; opacity:0; transition: opacity 0.5s ease-in-out;
 }
 #list-container{height: 90vh; width:26.5vw; display:flex; justify-content:center;align-items:center; flex-direction:column;
 }
-#loading-stocks{color:rgb(139, 139, 139); font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+#loading-stocks{color:rgb(139, 139, 139); font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size:0.9rem;
 }
 
@@ -100,4 +112,24 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 }
 .stock-profit-div{width: 20%; background-color: rgba(0, 182, 39, 0.08); height:100%; color:white; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     display:flex; justify-content: center; align-items: center;
+}
+
+/* ADDING RESPONSIVENESS */
+@media(max-width: 1024px){
+    body{overflow:auto;
+    }
+    main{display: block;
+    }
+    #chart-container{height: 30vh; width:95vw; margin:auto;
+    }
+    #chart-section{margin-bottom:4rem;
+    }
+    #sum-body{min-height: 30vh; background-color:rgba(0,0,0,0.3); margin-right:0.5vw;
+        border-radius: 1rem; margin-top:0; width: 95vw; margin: auto;
+    }
+    #list-container{
+        width:98vw;
+    }
+    .stock-name{
+    }
 }

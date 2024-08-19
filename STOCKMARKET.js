@@ -1,6 +1,5 @@
 
-  
-  let webpageName = document.querySelector('#webpage-name'); // header and body
+  let webpageName = document.querySelector('#webpage-name'); // header of the page and body
   let webLogo = document.querySelector('#web-logo');
   let bodyElement = document.querySelector('body');
 
@@ -12,12 +11,19 @@
   let threeMonthsBtn = document.querySelector('#three-months');
   let oneYearBtn = document.querySelector('#one-year');
   let fiveYearsBtn = document.querySelector('#five-years');
+  let timeSpanOptionsDiv = document.querySelector('#timespan-options');
+  let peakAndTrough = document.querySelector('#peak-and-trough');
 
   let summBodyElement = document.querySelector('#sum-body p'); // summary section
+  let summHeaderDiv = document.querySelector('#summary-header');
+  let stockNameOnDisplay = document.querySelector('#sum-stock-name'); // summary header
+  let stockBookValueOnDisplay = document.querySelector('#sum-book-value');
+  let stockProfitValueOnDisplay = document.querySelector('#sum-profit');
+  let summSection = document.querySelector('#summary-section');
 
   let chart; // defining globally
   let context;
-  let currentStockName = 'AAPL';
+  let currentStockName = 'AAPL';  // the initial data shown is of 'AAPL' stock
   let chartData;
   let summaryData;
   let stockListData;
@@ -25,6 +31,7 @@
 
   let loadingStocksText = document.querySelector('#loading-stocks'); // list section
   let listContainer = document.querySelector('#list-container');
+  let listSection = document.querySelector('#list-section');
 
   let timeStamps = [1533096000, 1535774400, 1538366400, 1541044800, 1543640400, 1546318800, 1548997200, 1551416400, 1554091200, 1556683200, 1559361600, 1561953600, 1564632000, 1567310400, 1569902400, 1572580800, 1575176400, 1577854800, 1580533200, 1583038800, 1585713600, 1588305600, 1590984000, 1593576000, 1596254400, 1598932800, 1601524800, 1604203200, 1606798800, 1609477200, 1612155600, 1614574800, 1617249600, 1619841600, 1622520000, 1625112000, 1627790400, 1630468800, 1633060800, 1635739200, 1638334800, 1641013200, 1643691600, 1646110800, 1648785600, 1651377600, 1654056000, 1656648000, 1659326400, 1662004800, 1664596800, 1667275200, 1669870800, 1672549200, 1675227600, 1677646800, 1680321600, 1682913600, 1685592000, 1688184000, 1689962125];
 
@@ -123,7 +130,7 @@ function makeChart(stockName, timeSpan) {
         chart.update();
     }
 
-    canvas.addEventListener('mousemove', function(event) {
+    function moveEvent(){
         var canvasRect = canvas.getBoundingClientRect();
         var mouseX = event.clientX - canvasRect.left;
         var chartX = chart.scales.x.getValueForPixel(mouseX);
@@ -174,16 +181,32 @@ function makeChart(stockName, timeSpan) {
     
         // Update the chart to reflect the changes
         chart.update();
-    });
+    }
+    canvas.addEventListener('mousemove', moveEvent);
+    canvas.addEventListener('touchmove', moveEvent);
 
-    canvas.addEventListener('mouseout', function() {
+    function outEvent(){
         chart.options.plugins.annotation.annotations.verticalLine.value = null;
         chart.data.datasets[0].pointRadius = chart.data.datasets[0].data.map(() => 0);  // Reset radius
         chart.data.datasets[0].pointBackgroundColor = chart.data.datasets[0].data.map(() => 'rgba(255, 99, 132, 1)'); // Reset color
         chart.update();
         customTooltip.style.display = 'none';
         timeTick.style.display = 'none';
-    });
+    }
+    canvas.addEventListener('mouseout', outEvent);
+    canvas.addEventListener('touchend', outEvent);
+    canvas.addEventListener('touchcancel', outEvent);
+
+    let peak = maxValue;
+    let trough = minValue;
+    updatePeakAndTrough(peak, trough);
+}
+
+function updatePeakAndTrough(peak, trough){
+    peakAndTrough.style.opacity = 0;
+    peakAndTrough.innerHTML = '';
+    peakAndTrough.innerHTML = `Peak: $${peak.toFixed(2)} &nbsp Trough: $${trough.toFixed(2)}`;
+    peakAndTrough.style.opacity = '1'
 }
     function updateChart(stockName, timeSpan) {   // this function is essentially to improve performance
         if (chart) {
@@ -201,55 +224,94 @@ function makeChart(stockName, timeSpan) {
             chart.options.scales.y.max = maxValue;
     
             chart.update(); // Update the chart instead of recreating it
+
+            let peak = maxValue;
+            let trough = minValue;
+            updatePeakAndTrough(peak, trough);
         } else {
+            let loadingScreenCanvas = document.querySelector('#loading-canvas');
+            loadingScreenCanvas.remove();
             makeChart(stockName, timeSpan);
         }
     }
     
 
     function addEventListenerToTimeSpanBtns() {
-        oneMonthBtn.addEventListener('click',()=>{
+        function oneMonthBtnClicked(){
             chartCanvas.style.opacity = '0';
+            
+            let activeTimeSpan = document.querySelector('.active');
+            activeTimeSpan.classList.remove('active');
+            oneMonthBtn.classList.add('active');
+
             setTimeout(()=>{
                 updateChart(currentStockName, '1mo');
                 chartCanvas.style.opacity = '1';
             },510);
-        });
-        threeMonthsBtn.addEventListener('click',()=>{
+        }
+        FastClick.attach(oneMonthBtn);
+        oneMonthBtn.addEventListener('click', oneMonthBtnClicked);
+
+        FastClick.attach(threeMonthsBtn);
+        function threeMonthsBtnClicked(){
             chartCanvas.style.opacity = '0';
+
+            let activeTimeSpan = document.querySelector('.active');
+            activeTimeSpan.classList.remove('active');
+            threeMonthsBtn.classList.add('active');
+
             setTimeout(()=>{
                 updateChart(currentStockName, '3mo');
                 chartCanvas.style.opacity = '1';
             },510);
-        });
-        oneYearBtn.addEventListener('click',()=>{
+        }
+        threeMonthsBtn.addEventListener('click',threeMonthsBtnClicked);
+
+        FastClick.attach(oneYearBtn);
+        function oneYearBtnClicked(){
             chartCanvas.style.opacity = '0';
+
+            let activeTimeSpan = document.querySelector('.active');
+            activeTimeSpan.classList.remove('active');
+            oneYearBtn.classList.add('active');
+
             setTimeout(()=>{
                 updateChart(currentStockName, '1y')
                 chartCanvas.style.opacity = '1';
             },510);
-        });
-        fiveYearsBtn.addEventListener('click',()=>{
+        }
+        oneYearBtn.addEventListener('click', oneYearBtnClicked);
+
+        FastClick.attach(fiveYearsBtn);
+        function fiveYearsBtnClicked(){
             chartCanvas.style.opacity = '0';
-            fiveYearsBtn.style.className = "ts-option container-option ts-opt-clicked";
-            if(oneMonthBtn.classList.contains('active')){
-                oneMonthBtn.classList.remove()
-            }
+            
+            let activeTimeSpan = document.querySelector('.active');
+            activeTimeSpan.classList.remove('active');
+            fiveYearsBtn.classList.add('active');
+
             setTimeout(()=>{
                 updateChart(currentStockName, '5y');
                 chartCanvas.style.opacity = '1';
             },510);
-        });
+        }
+        fiveYearsBtn.addEventListener('click',fiveYearsBtnClicked);
     }
 
     function updateSummary(stockName) { 
         summBodyElement.style.opacity = '0';
-        setTimeout(()=>{
-            summBodyElement.innerHTML == '';
-            let summ = summaryData.stocksProfileData[0][stockName].summary;
-            summBodyElement.innerHTML = summ;
-        },510);
-        summBodyElement.style.opacity = '1';
+        console.log('Hi 1');
+        setTimeout(() => {
+          let loadingScreenSummary = document.querySelector("#loading-summary");
+          if(loadingScreenSummary){
+            loadingScreenSummary.remove();
+          }
+          summBodyElement.innerHTML == "";
+          let summ = summaryData.stocksProfileData[0][stockName].summary;
+          summBodyElement.innerHTML = summ;
+          summBodyElement.style.opacity = '1';
+        }, 510);
+        
     }
 
   function fetchAllData(){
@@ -261,8 +323,8 @@ function makeChart(stockName, timeSpan) {
         return res.json();
     }).then((receivedData)=>{
         chartData = receivedData;
-
-        makeChart('AAPL', '5y');
+        timeSpanOptionsDiv.style.opacity = '1';
+        updateChart('AAPL', '5y');
         addEventListenerToTimeSpanBtns();
     }).catch((err)=>{
         console.log('Could Not Fetch Chart Data');
@@ -296,6 +358,7 @@ function makeChart(stockName, timeSpan) {
         return res.json();
     }).then((receivedData)=>{
         summaryData = receivedData;
+        summHeaderDiv.style.opacity = '1';
         updateSummary(currentStockName);
     }).catch((err)=>{
         console.log('Could not fetch summary data');
@@ -321,7 +384,8 @@ function makeChart(stockName, timeSpan) {
           }).then(function(res){
               setTimeout(function(){
                   chartSection.style.opacity = '1';
-                  //makeChart();
+                  summSection.style.opacity = '1';
+                  listSection.style.opacity = '1';
                   fetchAllData();
               },1000)
           }).catch(function(err){
@@ -330,7 +394,7 @@ function makeChart(stockName, timeSpan) {
       });
   }
 
-  function generateRandomColor(){  // generates random color for the stocks
+  function generateRandomColor(){  // generates random color for the stocks in the stocks' list
     let randomNumber = Math.random();
     let r = Math.floor(randomNumber*360);
     return `hsla(${r},90.2%,38.7%,0.2)`;
@@ -361,13 +425,35 @@ function makeChart(stockName, timeSpan) {
             let stockProfitDiv = document.createElement('div');
             stockProfitDiv.className = 'stock-profit-div';
             stockProfitDiv.innerHTML = '$'+stockObject[stock].profit.toFixed(3);
+            if(stockObject[stock].profit <= 0){
+                console.log(stock);
+                stockProfitDiv.style.backgroundColor = 'rgba(200,30,0,0.09)';
+            }
             stockElement.appendChild(stockProfitDiv);
 
-            stockElement.addEventListener('click', function(event){
+            function stockElementClicked(){
                 currentStockName = stockNameDiv.innerHTML;
                 updateChart(currentStockName, '5y');
                 updateSummary(currentStockName);
-            });
+
+                let activeTimeSpanElement = document.querySelector('.active');
+                activeTimeSpanElement.classList.remove('active');
+                fiveYearsBtn.classList.add('active');
+
+                stockNameOnDisplay.innerHTML = '';                      // update stock name, book value and profit on the summary header according to the stock clicked from the list
+                stockNameOnDisplay.innerHTML = currentStockName;
+                stockBookValueOnDisplay.innerHTML = '';
+                stockBookValueOnDisplay.innerHTML = '$'+stockObject[stock].bookValue.toFixed(3);
+                stockProfitValueOnDisplay.innerHTML = '';
+                stockProfitValueOnDisplay.innerHTML = '$'+stockObject[stock].profit.toFixed(3);
+                if(stockObject[stock].profit == 0){
+                    stockProfitValueOnDisplay.style.color = 'rgba(255,0,0,0.76)';
+                }else{
+                    stockProfitValueOnDisplay.style.color = 'rgba(30,255,30,0.65)';
+                }
+            }
+            FastClick.attach(stockElement);
+            stockElement.addEventListener('click', stockElementClicked);
         }
     };
   }
