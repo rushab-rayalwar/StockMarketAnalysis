@@ -116,25 +116,57 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 
 /* ADDING RESPONSIVENESS */
 @media(max-width: 1024px){
-    html{font-size: 20px;;
+    html{
+        font-size: 16px;;
     }
-    body{background-image: linear-gradient(to bottom, rgb(32, 60, 72), black 100%);
+    body{
+        background-image: linear-gradient(to bottom, rgb(32, 60, 72), black 100%);
+        background-attachment: fixed;
+        overflow:auto;
     }
-    body{overflow:auto;
+    main{
+        display: block;
     }
-    main{display: block;
+    #chart-container{
+        height: 25vh; 
+        width:95vw; 
+        margin:auto; 
+        margin-top:2rem;
     }
-    #chart-container{height: 30vh; width:95vw; margin:auto;
+    #chart-section{
+        margin-bottom:2rem;
     }
-    #chart-section{margin-bottom:4rem;
+    #sum-body{
+        min-height: 30vh; 
+        background-color:rgba(0,0,0,0.3); 
+        margin-right:0.5vw;
+        border-radius: 1rem; 
+        margin-top:0; 
+        width: 95vw; 
+        margin: auto;
     }
-    #sum-body{min-height: 30vh; background-color:rgba(0,0,0,0.3); margin-right:0.5vw;
-        border-radius: 1rem; margin-top:0; width: 95vw; margin: auto;
+    #list-section{
+        margin-top: 1rem;
     }
     #list-container{
-        width:98vw;
+        width:98vw; 
+        position:relative;
     }
-    .stock-name{
+    #timespan-options{
+        transform:translateY(115%) translateX(50%); 
+        right:50%;
     }
-    
+    .ts-option{ 
+        padding: 0.8vh; 
+        font-size:0.7rem; 
+        width: 3rem;
+    } 
+    #sum-body p{
+        line-height: 1.4; 
+        padding: 0.8vh;
+    }
+    #peak-and-trough{
+        font-size: 0.7rem;
+        color:rgba(255,255,255,0.7);
+    }
 }
