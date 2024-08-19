@@ -33,18 +33,16 @@
   let listContainer = document.querySelector('#list-container');
   let listSection = document.querySelector('#list-section');
 
-  let timeStamps = [1533096000, 1535774400, 1538366400, 1541044800, 1543640400, 1546318800, 1548997200, 1551416400, 1554091200, 1556683200, 1559361600, 1561953600, 1564632000, 1567310400, 1569902400, 1572580800, 1575176400, 1577854800, 1580533200, 1583038800, 1585713600, 1588305600, 1590984000, 1593576000, 1596254400, 1598932800, 1601524800, 1604203200, 1606798800, 1609477200, 1612155600, 1614574800, 1617249600, 1619841600, 1622520000, 1625112000, 1627790400, 1630468800, 1633060800, 1635739200, 1638334800, 1641013200, 1643691600, 1646110800, 1648785600, 1651377600, 1654056000, 1656648000, 1659326400, 1662004800, 1664596800, 1667275200, 1669870800, 1672549200, 1675227600, 1677646800, 1680321600, 1682913600, 1685592000, 1688184000, 1689962125];
-
-function makeChart(stockName, timeSpan) {
+function makeChart(stockName, timeSpan) {    // renders chart of a given stock and timespan from the chart.js library
     var canvas = chartCanvas;
     var ctx = canvas.getContext('2d');
     context = ctx;
 
     var data = chartData.stocksData[0][stockName][timeSpan].value;
-    console.log(data);
+    
 
     var timeStamps = chartData.stocksData[0][stockName][timeSpan].timeStamp;
-    console.log(timeStamps);
+    
 
     var minValue =  Math.min(...data);
     var maxValue = Math.max(...data);
@@ -135,7 +133,7 @@ function makeChart(stockName, timeSpan) {
         var mouseX = event.clientX - canvasRect.left;
         var chartX = chart.scales.x.getValueForPixel(mouseX);
         
-        // Find the closest data point based on the x-axis value
+        // Finds the closest data point based on the x-axis value
         let closestIndex = null;
         let closestDistance = Infinity;
     
@@ -149,15 +147,15 @@ function makeChart(stockName, timeSpan) {
             }
         });
     
-        // Reset all point radius and colors before highlighting the closest one
+        // Resets all point radius and colors before highlighting the closest one
         chart.data.datasets[0].pointRadius = chart.data.datasets[0].data.map(() => 0);
         chart.data.datasets[0].pointBackgroundColor = chart.data.datasets[0].data.map(() => 'rgba(255, 99, 132, 0.1)');
         chart.data.datasets[0].pointBorderWidth = chart.data.datasets[0].data.map(() => 1);
     
         if (closestIndex !== null) {
-            // Highlight the nearest point by changing its radius and color
+            // Highlights the nearest point by changing its radius and color
             chart.data.datasets[0].pointRadius[closestIndex] = 4;
-            chart.data.datasets[0].pointBackgroundColor[closestIndex] = 'rgba(100,255,100,0.6)';//'rgba(255, 99, 132, 1)'; // Green color for the highlighted point
+            chart.data.datasets[0].pointBackgroundColor[closestIndex] = 'rgba(100,255,100,0.6)'; // Green color for the highlighted point
             chart.data.datasets[0].pointBorderWidth[closestIndex] = 0;
     
             let dataPoint = chart.data.datasets[0].data[closestIndex];
@@ -183,7 +181,6 @@ function makeChart(stockName, timeSpan) {
         chart.update();
     }
     canvas.addEventListener('mousemove', moveEvent);
-    // canvas.addEventListener('touchmove', moveEvent);
 
     function outEvent(){
         chart.options.plugins.annotation.annotations.verticalLine.value = null;
@@ -194,8 +191,6 @@ function makeChart(stockName, timeSpan) {
         timeTick.style.display = 'none';
     }
     canvas.addEventListener('mouseout', outEvent);
-    // canvas.addEventListener('touchend', outEvent);
-    // canvas.addEventListener('touchcancel', outEvent);
 
     let peak = maxValue;
     let trough = minValue;
@@ -208,7 +203,7 @@ function updatePeakAndTrough(peak, trough){
     peakAndTrough.innerHTML = `Peak: $${peak.toFixed(2)} &nbsp Trough: $${trough.toFixed(2)}`;
     peakAndTrough.style.opacity = '1'
 }
-    function updateChart(stockName, timeSpan) {   // this function is essentially to improve performance
+    function updateChart(stockName, timeSpan) {   // this function is essentially to improve performance by not rendering the chart from scratch and just updating the necessary values / parameters
         if (chart) {
             let data = chartData.stocksData[0][stockName][timeSpan].value;
             let timeStamps = chartData.stocksData[0][stockName][timeSpan].timeStamp;
@@ -236,7 +231,7 @@ function updatePeakAndTrough(peak, trough){
     }
     
 
-    function addEventListenerToTimeSpanBtns() {
+    function addEventListenerToTimeSpanBtns() {  // adds click event listener to the time span buttons
         function oneMonthBtnClicked(){
             chartCanvas.style.opacity = '0';
             
@@ -298,9 +293,9 @@ function updatePeakAndTrough(peak, trough){
         fiveYearsBtn.addEventListener('click',fiveYearsBtnClicked);
     }
 
-    function updateSummary(stockName) { 
+    function updateSummary(stockName) {    // updates the summary content based on the stock selected
         summBodyElement.style.opacity = '0';
-        console.log('Hi 1');
+        
         setTimeout(() => {
           let loadingScreenSummary = document.querySelector("#loading-summary");
           if(loadingScreenSummary){
@@ -314,7 +309,7 @@ function updatePeakAndTrough(peak, trough){
         
     }
 
-  function fetchAllData(){
+  function fetchAllData(){                // fetches all the data including the list of all stocks, chart data for various timespans and summary data for the stocks
     let chartDataPromise = fetch('https://stocksapi-uhe1.onrender.com/api/stocks/getstocksdata',{method: 'GET'});
     let summaryDataPromise = fetch('https://stocksapi-uhe1.onrender.com/api/stocks/getstocksprofiledata',{method:'GET'});
     let listDataPromise = fetch('https://stocksapi-uhe1.onrender.com/api/stocks/getstockstatsdata' , {method:'GET'});
@@ -372,7 +367,7 @@ function updatePeakAndTrough(peak, trough){
               webpageName.style.opacity = '1';
               webLogo.style.opacity = '1';
               return res('opacity 1');
-          },100);                                  // 100 milliseconds to unsure that the whole page is loaded. Could have used 'window.onload' event too.
+          },100);                                  // 100 milliseconds to ensure that the whole page is loaded. Could have used 'window.onload' event too.
       });
       opacityAnimation.then(function(resString){
           return new Promise((res,rej)=>{
@@ -386,7 +381,7 @@ function updatePeakAndTrough(peak, trough){
                   chartSection.style.opacity = '1';
                   summSection.style.opacity = '1';
                   listSection.style.opacity = '1';
-                  fetchAllData();
+                  fetchAllData();                       // finally after finishing the intro animations / transitions, the function to fetch data is called
               },1000)
           }).catch(function(err){
               alert('Error encountered while executing animations '+err.message);
@@ -426,7 +421,7 @@ function updatePeakAndTrough(peak, trough){
             stockProfitDiv.className = 'stock-profit-div';
             stockProfitDiv.innerHTML = '$'+stockObject[stock].profit.toFixed(3);
             if(stockObject[stock].profit <= 0){
-                console.log(stock);
+                
                 stockProfitDiv.style.backgroundColor = 'rgba(200,30,0,0.09)';
             }
             stockElement.appendChild(stockProfitDiv);

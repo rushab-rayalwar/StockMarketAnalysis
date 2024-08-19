@@ -160,13 +160,20 @@ main{display: flex; flex-direction: row; align-items: flex-start;
         padding: 0.8vh; 
         font-size:0.7rem; 
         width: 3rem;
+        text-align: center;
     } 
     #sum-body p{
         line-height: 1.4; 
         padding: 0.8vh;
     }
     #peak-and-trough{
-        font-size: 0.7rem;
+        font-size: 0.6rem;
         color:rgba(255,255,255,0.7);
+    }
+    #time-tick{
+        font-size: 0.7rem;
+    }
+    #custom-tooltip{
+        height: 0.8rem; font-size: 0.8rem;
     }
 }
