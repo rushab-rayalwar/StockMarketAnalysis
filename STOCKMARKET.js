@@ -183,7 +183,7 @@ function makeChart(stockName, timeSpan) {
         chart.update();
     }
     canvas.addEventListener('mousemove', moveEvent);
-    canvas.addEventListener('touchmove', moveEvent);
+    // canvas.addEventListener('touchmove', moveEvent);
 
     function outEvent(){
         chart.options.plugins.annotation.annotations.verticalLine.value = null;
@@ -194,8 +194,8 @@ function makeChart(stockName, timeSpan) {
         timeTick.style.display = 'none';
     }
     canvas.addEventListener('mouseout', outEvent);
-    canvas.addEventListener('touchend', outEvent);
-    canvas.addEventListener('touchcancel', outEvent);
+    // canvas.addEventListener('touchend', outEvent);
+    // canvas.addEventListener('touchcancel', outEvent);
 
     let peak = maxValue;
     let trough = minValue;
