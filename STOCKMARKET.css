@@ -116,6 +116,10 @@ main{display: flex; flex-direction: row; align-items: flex-start;
 
 /* ADDING RESPONSIVENESS */
 @media(max-width: 1024px){
+    html{font-size: 20px;;
+    }
+    body{background-image: linear-gradient(to bottom, rgb(32, 60, 72), black 100%);
+    }
     body{overflow:auto;
     }
     main{display: block;
@@ -132,4 +136,5 @@ main{display: flex; flex-direction: row; align-items: flex-start;
     }
     .stock-name{
     }
+    
 }
