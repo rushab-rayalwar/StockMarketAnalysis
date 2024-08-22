@@ -454,6 +454,7 @@ function updatePeakAndTrough(peak, trough){
   }
 
   function main() {                              // Main Function, the entry point of the code
+      alert('Please wait for the data to load. At times, this can take upto 30 seconds.');
       window.onload = intro;
   }
   main();
