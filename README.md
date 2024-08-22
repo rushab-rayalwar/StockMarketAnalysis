@@ -29,9 +29,16 @@ This front-end project utilizes the Chart.js library to create an interactive st
 - **Profit/Loss Color Coding**: 
   - Background colors for profit values are styled with a reddish hue if the value is less than or equal to 0, and with a greenish hue if positive.
  
+## How to use
+
+**Note:** After opening the application, please wait for the data to load. At times, this can take upto 30 seconds
+- **Choosing stocks**: Simply click / tap on a stock in the list on the right side (for desktop screens) or at the bottom (for mobile screens). On choosing a stock, the chart and summary would update accordingly.
+- **Analysing Chart**: Hover the pointer over the chart to know the value of the selected stock at that point in time. The value is showed in the tooltip. The peak and trough values are present at the bottom of the chart.
+- **Choosing Time Span of the Chart**: For desktop screens, the options to choose the time-span would appear below the bottom right corner of the chart. And for mobile screens, the options would appear in the center below the chart. Clicking on any option would update the chart with a fade-out and fade-in transition.
+ 
   ## Technologies Used
 
-- **HTML**: Markup language used for structuring the content of the webpage.
-- **CSS**: Stylesheet language used for designing and styling the visual appearance of the webpage.
-- **JavaScript**: Programming language used for adding interactivity and dynamic functionality to the webpage.
+- **HTML**: Used for structuring the content of the webpage.
+- **CSS**: Stylesheet used for designing and styling the visual appearance of the webpage.
+- **JavaScript**: Used for adding interactivity and dynamic functionality to the webpage.
 - **Chart.js**: JavaScript library for creating interactive and customizable charts and graphs.
